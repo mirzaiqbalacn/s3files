@@ -4,12 +4,10 @@ deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
-  bucket: $AWS_BUCKET_NAME
-  region: $AWS_DEFAULT_REGION
-  upload-dir: $AWS_BUCKET_NAME
-  local-dir: s3files/folder2/
+  bucket: 's3copier'
   skip_cleanup: true
   acl: public_read
+  local-dir: folder2
 
 branches:
   only:
