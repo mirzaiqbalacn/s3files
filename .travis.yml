@@ -1,32 +1,5 @@
 language: generic
 
-before_install:
-  - wget https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip
-  - echo "602d2529aafdaa0f605c06adb7c72cfb585d8aa19b3f4d8d189b42589e27bf11  terraform_0.12.24_linux_amd64.zip" | sha256sum --check --status
-  - unzip terraform_0.12.24_linux_amd64.zip
-  - sudo mv ./terraform /usr/local/bin/terraform
-  - rm terraform_0.12.24_linux_amd64.zip
-  - wget https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.20.tar.bz2
-  - echo "04a7c9d48b74c399168ee8270e548588ddbe52218c337703d7f06373d326ca30 gnupg-2.2.20.tar.bz2" | sha256sum --check --status
-  - sudo tar -xf gnupg-2.2.20.tar.bz2 -C /usr/local/bin/
-  - gpg --import awscli_pub_key
-  - curl -o awscliv2.sig https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip.sig
-  - curl -o awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
-  - gpg --verify awscliv2.sig awscliv2.zip
-  - unzip awscliv2.zip
-  - sudo ./aws/install
-  
-stages:
-  - stage: BI Tst
-    name: "BI Tst"
-    script:
-
-jobs:
-  include:
-  - stage: BI Dev
-    name: "BI Dev"
-
-
 deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY_ID
@@ -37,9 +10,6 @@ deploy:
   local-dir: s3files/folder2/
   skip_cleanup: true
   acl: public_read
-  on:
-    repo: $DEPLOY_REPO
-    all_branches: true
 
 branches:
   only:
